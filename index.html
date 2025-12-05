@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شبكة الأخبار الاجتماعية</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Navigation */
+        .top-header {
+            background: #1a1a1a;
+            color: white;
+            padding: 10px 0;
+            border-bottom: 3px solid #c41e3a;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .site-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #c41e3a;
+            cursor: pointer;
+        }
+
+        .auth-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .auth-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            border: 1px solid white;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .auth-links a:hover {
+            background: white;
+            color: #1a1a1a;
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            background: white;
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .filter-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .filter-item label {
+            font-size: 13px;
+            color: #666;
+            font-weight: bold;
+        }
+
+        .filter-item select {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            min-width: 180px;
+        }
+
+        .filter-btn {
+            padding: 8px 25px;
+            background: #c41e3a;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .filter-btn:hover {
+            background: #a01730;
+        }
+
+        /* Main Layout */
+        .main-container {
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 300px 1fr 300px;
+            gap: 20px;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            background: white;
+        }
+
+        .sidebar-header {
+            background: #2c3e50;
+            color: white;
+            padding: 12px 15px;
+            font-weight: bold;
+            border-bottom: 3px solid #c41e3a;
+        }
+
+        .news-item {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            transition: background 0.2s;
+        }
+
+        .news-item:hover {
+            background: #f9f9f9;
+        }
+
+        .news-category {
+            display: inline-block;
+            padding: 3px 10px;
+            font-size: 11px;
+            border-radius: 3px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .category-death {
+            background: #000;
+            color: white;
+        }
+
+        .category-wedding {
+            background: #ff69b4;
+            color: white;
+        }
+
+        .category-graduation {
+            background: #4169e1;
+            color: white;
+        }
+
+        .category-birth {
+            background: #32cd32;
+            color: white;
+        }
+
+        .news-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .news-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #1a1a1a;
+            cursor: pointer;
+        }
+
+        .news-item:hover .news-title {
+            color: #c41e3a;
+        }
+
+        .news-excerpt {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .news-meta {
+            font-size: 11px;
+            color: #999;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .comment-count {
+            font-size: 11px;
+            color: #999;
+            margin-top: 8px;
+            display: block;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            background: white;
+        }
+
+        .content-header {
+            background: #c41e3a;
+            color: white;
+            padding: 12px 15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .admin-news-item {
+            padding: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .admin-badge {
+            background: #c41e3a;
+            color: white;
+            padding: 4px 12px;
+            font-size: 11px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .admin-news-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+
+        .admin-news-content {
+            font-size: 15px;
+            color: #444;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .admin-news-meta {
+            font-size: 12px;
+            color: #999;
+            padding-top: 10px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        /* Advertisement Section */
+        .ad-section {
+            background: #fff9e6;
+            border: 2px dashed #ffd700;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .ad-label {
+            background: #ffd700;
+            color: #1a1a1a;
+            padding: 5px 15px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .ad-section h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+
+        .ad-location {
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* News Detail Page */
+        .news-detail {
+            background: white;
+            padding: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .news-detail-header {
+            border-bottom: 3px solid #c41e3a;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .news-detail-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+        }
+
+        .news-detail-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .news-detail-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .news-detail-content {
+            font-size: 16px;
+            line-height: 1.9;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        /* Comments Section */
+        .comments-section {
+            margin-top: 40px;
+            border-top: 2px solid #e0e0e0;
+            padding-top: 30px;
+        }
+
+        .comments-header {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        .comment-form {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .comment-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            min-height: 100px;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .comment-form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .comment-submit {
+            padding: 10px 25px;
+            background: #c41e3a;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .comment-submit:hover {
+            background: #a01730;
+        }
+
+        .media-upload-btn {
+            padding: 10px 20px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .media-upload-btn:hover {
+            background: #1a252f;
+        }
+
+        .comment-item {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            background: white;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .comment-author-name {
+            font-weight: bold;
+            color: #c41e3a;
+            font-size: 15px;
+        }
+
+        .comment-date {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .comment-text {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Create News Page */
+        .create-news-container {
+            background: white;
+            padding: 40px;
+            max-width: 800px;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #1a1a1a;
+            text-align: center;
+            border-bottom: 3px solid #c41e3a;
+            padding-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 15px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #c41e3a;
+        }
+
+        .file-upload-area {
+            border: 2px dashed #ddd;
+            padding: 30px;
+            text-align: center;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-upload-area:hover {
+            border-color: #c41e3a;
+            background: #f9f9f9;
+        }
+
+        .file-upload-area input[type="file"] {
+            display: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #c41e3a;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background: #a01730;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: white;
+            width: 90%;
+            max-width: 450px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .form-field {
+            margin-bottom: 18px;
+        }
+
+        .form-field label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .form-field input,
+        .form-field select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-field input:focus,
+        .form-field select:focus {
+            outline: none;
+            border-color: #c41e3a;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 12px;
+            background: #c41e3a;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .form-submit:hover {
+            background: #a01730;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* User Menu */
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .create-news-btn {
+            background: #c41e3a;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .create-news-btn:hover {
+            background: #a01730;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #c41e3a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .filter-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-item select {
+                width: 100%;
+            }
+
+            .news-detail {
+                padding: 20px;
+            }
+
+            .news-detail-title {
+                font-size: 22px;
+            }
+
+            .create-news-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="top-header">
+        <div class="header-container">
+            <div class="site-logo" onclick="showPage('home')">شبكة الأخبار الاجتماعية</div>
+            <div id="guestMenu" class="auth-links">
+                <a href="#" onclick="showModal('login'); return false;">تسجيل الدخول</a>
+                <a href="#" onclick="showModal('register'); return false;">تسجيل جديد</a>
+            </div>
+            <div id="userMenu" class="user-menu hidden">
+                <a href="#" onclick="showPage('create'); return false;" class="create-news-btn">إضافة خبر جديد</a>
+                <div class="user-profile" onclick="logout()">
+                    <div class="user-avatar">م</div>
+                    <span id="userName">محمد أحمد</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+        <div class="filter-container">
+            <div class="filter-item">
+                <label>الدولة:</label>
+                <select id="countrySelect">
+                    <option value="">اختر الدولة</option>
+                    <option value="egypt">مصر</option>
+                    <option value="saudi">السعودية</option>
+                    <option value="uae">الإمارات</option>
+                    <option value="kuwait">الكويت</option>
+                    <option value="jordan">الأردن</option>
+                </select>
+            </div>
+            <div class="filter-item">
+                <label>المدينة:</label>
+                <select id="citySelect">
+                    <option value="">اختر المدينة</option>
+                    <option value="cairo">القاهرة</option>
+                    <option value="alex">الإسكندرية</option>
+                    <option value="riyadh">الرياض</option>
+                    <option value="jeddah">جدة</option>
+                    <option value="dubai">دبي</option>
+                </select>
+            </div>
+            <div class="filter-item">
+                <label>العائلة / القبيلة:</label>
+                <select id="familySelect">
+                    <option value="">اختر العائلة</option>
+                    <option value="family1">عائلة الأحمد</option>
+                    <option value="family2">عائلة العلي</option>
+                    <option value="family3">قبيلة العتيبة</option>
+                    <option value="family4">قبيلة شمر</option>
+                </select>
+            </div>
+            <button class="filter-btn" onclick="applyFilter()">بحث</button>
+        </div>
+    </div>
+
+    <!-- Home Page -->
+    <div id="homePage" class="main-container">
+        <!-- Right Sidebar - Member News -->
+        <div class="sidebar">
+            <div class="sidebar-header">أحدث أخبار الأعضاء</div>
+            
+            <div class="news-item" onclick="showNewsDetail(1)">
+                <span class="news-category category-death">وفاة</span>
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&h=200&fit=crop" alt="خبر وفاة" class="news-image">
+                <div class="news-title">انتقل إلى رحمة الله تعالى الحاج محمد أحمد</div>
+                <div class="news-excerpt">من عائلة الأحمد - القاهرة، مصر</div>
+                <div class="news-meta">
+                    <span>بواسطة: أحمد محمد</span>
+                    <span>منذ ساعة واحدة</span>
+                </div>
+                <span class="comment-count">💬 15 تعليق</span>
+            </div>
+
+            <div class="news-item" onclick="showNewsDetail(2)">
+                <span class="news-category category-birth">ولادة</span>
+                <img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=300&h=200&fit=crop" alt="خبر ولادة" class="news-image">
+                <div class="news-title">مولود جديد في عائلة العلي</div>
+                <div class="news-excerpt">رزق السيد عبدالله علي بمولود ذكر - جدة</div>
+                <div class="news-meta">
+                    <span>بواسطة: سارة العلي</span>
+                    <span>منذ 3 ساعات</span>
+                </div>
+                <span class="comment-count">💬 23 تعليق</span>
+            </div>
+
+            <div class="news-item" onclick="showNewsDetail(3)">
+                <span class="news-category category-wedding">زواج</span>
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=300&h=200&fit=crop" alt="خبر زواج" class="news-image">
+                <div class="news-title">زفاف كريم وليلى</div>
+                <div class="news-excerpt">تم بحمد الله عقد قران كريم أحمد على ليلى حسن - الرياض</div>
+                <div class="news-meta">
+                    <span>بواسطة: نورا العتيبي</span>
+                    <span>منذ 6 ساعات</span>
+                </div>
+                <span class="comment-count">💬 45 تعليق</span>
+            </div>
+
+            <div class="news-item" onclick="showNewsDetail(4)">
+                <span class="news-category category-graduation">تخرج</span>
+                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=300&h=200&fit=crop" alt="خبر تخرج" class="news-image">
+                <div class="news-title">تخرج بتفوق من كلية الطب</div>
+                <div class="news-excerpt">تخرجت نورا محمد من كلية الطب جامعة الإسكندرية بتقدير امتياز</div>
+                <div class="news-meta">
+                    <span>بواسطة: أمل سعيد</span>
+                    <span>منذ يوم</span>
+                </div>
+                <span class="comment-count">💬 18 تعليق</span>
+            </div>
+        </div>
+
+        <!-- Center Content - Admin News -->
+        <div class="main-content">
+            <div class="content-header">الأخبار الرسمية من الإدارة</div>
+
+            <div class="admin-news-item">
+                <span class="admin-badge">إعلان هام</span>
+                <h2 class="admin-news-title">مرحباً بكم في شبكة الأخبار الاجتماعية</h2>
+                <div class="admin-news-content">
+                    نرحب بجميع أعضائنا الكرام في المنصة الإخبارية الاجتماعية الأولى من نوعها في الوطن العربي. يمكنكم الآن متابعة أخبار عائلاتكم وقبائلكم من جميع أنحاء الوطن العربي، والتفاعل مع الأخبار عبر التعليقات ومشاركة الصور والمقاطع الصوتية. نسعى دائماً لتقديم أفضل خدمة إخبارية اجتماعية لكم.
+                </div>
+                <div class="admin-news-meta">
+                    نُشر بواسطة: الإدارة | التاريخ: 05 ديسمبر 2025
+                </div>
+            </div>
+
+            <div class="ad-section">
+                <div class="ad-label">إعلان مميز</div>
+                <h3>مساحة إعلانية متاحة</h3>
+                <p class="ad-location">القاهرة - مصر</p>
+                <p style="margin-top: 10px; font-size: 14px; color: #666;">
+                    للإعلان هنا يرجى التواصل مع الإدارة
+                </p>
+            </div>
+
+            <div class="admin-news-item">
+                <span class="admin-badge">تحديث</span>
+                <h2 class="admin-news-title">ميزات جديدة في الموقع</h2>
+                <div class="admin-news-content">
+                    يسعدنا أن نعلن عن إضافة ميزات جديدة تشمل: إمكانية إنشاء صفحات إخبارية متعددة لكل عضو، نظام متابعة محسّن يعتمد على اسم العائلة/القبيلة والمدينة، ورفع الصور والمقاطع الصوتية على الأخبار. كما تم تحسين نظام الفلترة ليكون أكثر دقة وسهولة في الاستخدام.
+                </div>
+                <div class="admin-news-meta">
+                    نُشر بواسطة: فريق التطوير | التاريخ: 04 ديسمبر 2025
+                </div>
+            </div>
+
+            <div class="ad-section">
+                <div class="ad-label">إعلان</div>
+                <h3>خدمات تنظيم المناسبات الاجتماعية</h3>
+                <p class="ad-location">الرياض - السعودية</p>
+                <p style="margin-top: 10px; font-size: 14px; color: #666;">
+                    نوفر كافة خدمات تنظيم الأفراح والمناسبات
+                </p>
+            </div>
+
+            <div class="admin-news-item">
+                <span class="admin-badge">إرشادات</span>
+                <h2 class="admin-news-title">كيفية استخدام الموقع</h2>
+                <div class="admin-news-content">
+                    للاستفادة الكاملة من الموقع، نوصي بإنشاء حساب والتسجيل. بعد التسجيل، يمكنك متابعة العائلات والقبائل المختلفة، نشر أخبارك الاجتماعية، التعليق على أخبار الآخرين، ومشاركة اللحظات المهمة مع مجتمعك. استخدم نظام الفلترة للبحث عن أخبار محددة حسب الدولة والمدينة والعائلة.
+                </div>
+                <div class="admin-news-meta">
+                    نُشر بواسطة: الإدارة | التاريخ: 03 ديسمبر 2025
+                </div>
+            </div>
+        </div>
+
+        <!-- Left Sidebar - More Member News -->
+        <div class="sidebar">
+            <div class="sidebar-header">المزيد من الأخبار</div>
+            
+            <div class="news-item" onclick="showNewsDetail(5)">
+                <span class="news-category category-death">وفاة</span>
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=200&fit=crop" alt="خبر وفاة" class="news-image">
+                <div class="news-title">في ذمة الله السيدة فاطمة حسن</div>
+                <div class="news-excerpt">انتقلت إلى رحمة الله والدة الحاج علي حسن - دبي</div>
+                <div class="news-meta">
+                    <span>بواسطة: علي حسن</span>
+                    <span>منذ 2 ساعة</span>
+                </div>
+                <span class="comment-count">💬 32 تعليق</span>
+            </div>
+
+            <div class="news-item" onclick="showNewsDetail(6)">
+                <span class="news-category category-wedding">زواج</span>
+                <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=300&h=200&fit=crop" alt="خبر زواج" class="news-image">
+                <div class="news-title">خطوبة سعيدة</div>
+                <div class="news-excerpt">تمت خطوبة أحمد خالد على منى سعيد من عائلة العلي - الكويت</div>
+                <div class="news-meta">
+                    <span>بواسطة: خالد العلي</span>
+                    <span>منذ 4 ساعات</span>
+                </div>
+                <span class="comment-count">💬 28 تعليق</span>
+            </div>
+
+            <div class="news-item" onclick="showNewsDetail(7)">
+                <span class="news-category category-graduation">تخرج</span>
+                <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=300&h=200&fit=crop" alt="خبر تخرج" class="news-image">
+                <div class="news-title">تخرج من كلية الهندسة</div>
+                <div class="news-excerpt">تخرج يوسف أحمد من كلية الهندسة - جامعة القاهرة بتقدير جيد جداً</div>
+                <div class="news-meta">
+                    <span>بواسطة: محمد أحمد</span>
+                    <span>منذ 8 ساعات</span>
+                </div>
+                <span class="comment-count">💬 12 تعليق</span>
+            </div>
+
+            <div class="news-item" onclick="showNewsDetail(8)">
+                <span class="news-category category-birth">ولادة</span>
+                <img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=300&h=200&fit=crop" alt="خبر ولادة" class="news-image">
+                <div class="news-title">مولودة جديدة</div>
+                <div class="news-excerpt">رزقت عائلة السعيد بمولودة جميلة، الحمد لله - الإسكندرية</div>
+                <div class="news-meta">
+                    <span>بواسطة: ليلى السعيد</span>
+                    <span>منذ 10 ساعات</span>
+                </div>
+                <span class="comment-count">💬 19 تعليق</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- News Detail Page -->
+    <div id="newsDetailPage" class="hidden">
+        <div class="news-detail">
+            <div class="news-detail-header">
+                <span class="news-category category-wedding" id="detailCategory">زواج</span>
+                <h1 class="news-detail-title" id="detailTitle">زفاف كريم وليلى</h1>
+                <div class="news-detail-meta">
+                    <span id="detailAuthor">نورا العتيبي</span>
+                    <span id="detailLocation">الرياض، السعودية</span>
+                    <span id="detailDate">منذ 6 ساعات</span>
+                    <span id="detailFamily">قبيلة العتيبة</span>
+                </div>
+            </div>
+
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=900&h=500&fit=crop" alt="صورة الخبر" class="news-detail-image" id="detailImage">
+
+            <div class="news-detail-content" id="detailContent">
+                بحمد الله وتوفيقه تم عقد قران الشاب كريم أحمد بن محمد على الآنسة ليلى حسن بنت عبدالله من قبيلة العتيبة الكريمة. وقد أقيم حفل الزفاف بحضور الأهل والأصدقاء في قاعة الفرح الكبرى بمدينة الرياض.
+                
+                نسأل الله أن يبارك لهما ويبارك عليهما ويجمع بينهما في خير. كما نتقدم بالتهاني والتبريكات لعائلتي العروسين الكريمتين.
+                
+                تم تلقي العديد من التهاني والتبريكات من الأهل والأقارب والأصدقاء، حيث كان الحفل مميزاً وحضره عدد كبير من أفراد القبيلة والعائلة.
+            </div>
+
+            <div class="comments-section">
+                <h2 class="comments-header">التعليقات (45)</h2>
+
+                <div class="comment-form">
+                    <textarea placeholder="اكتب تعليقك هنا..." id="commentText"></textarea>
+                    <div class="comment-form-actions">
+                        <button class="comment-submit" onclick="addComment()">إرسال التعليق</button>
+                        <button class="media-upload-btn">📷 إضافة صورة</button>
+                        <button class="media-upload-btn">🎤 مقطع صوتي</button>
+                    </div>
+                </div>
+
+                <div id="commentsList">
+                    <div class="comment-item">
+                        <div class="comment-header">
+                            <span class="comment-author-name">فاطمة أحمد</span>
+                            <span class="comment-date">منذ ساعة</span>
+                        </div>
+                        <div class="comment-text">
+                            مبروك! الله يبارك فيهم ويجمع بينهم في خير. ألف مبروك للعروسين وعقبال الفرحة الدائمة.
+                        </div>
+                    </div>
+
+                    <div class="comment-item">
+                        <div class="comment-header">
+                            <span class="comment-author-name">خالد محمود</span>
+                            <span class="comment-date">منذ ساعتين</span>
+                        </div>
+                        <div class="comment-text">
+                            ألف مبروك والله يتمم لهم على خير. الله يجعله زواج مبارك ويرزقهم الذرية الصالحة.
+                        </div>
+                    </div>
+
+                    <div class="comment-item">
+                        <div class="comment-header">
+                            <span class="comment-author-name">سارة العلي</span>
+                            <span class="comment-date">منذ 3 ساعات</span>
+                        </div>
+                        <div class="comment-text">
+                            الله يبارك لهم ويبارك عليهم ويجمع بينهم في خير. مبروك للعائلتين الكريمتين.
+                        </div>
+                    </div>
+
+                    <div class="comment-item">
+                        <div class="comment-header">
+                            <span class="comment-author-name">أحمد حسن</span>
+                            <span class="comment-date">منذ 4 ساعات</span>
+                        </div>
+                        <div class="comment-text">
+                            مبروك وعقبال المليون، الله يوفقهم ويسعدهم دنيا وآخرة.
+                        </div>
+                    </div>
+
+                    <div class="comment-item">
+                        <div class="comment-header">
+                            <span class="comment-author-name">نورة السعيد</span>
+                            <span class="comment-date">منذ 5 ساعات</span>
+                        </div>
+                        <div class="comment-text">
+                            ألف ألف مبروك! الله يجعلها حياة سعيدة مليئة بالحب والسعادة.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create News Page -->
+    <div id="createNewsPage" class="hidden">
+        <div class="create-news-container">
+            <h1 class="page-title">إضافة خبر جديد</h1>
+            
+            <form onsubmit="return submitNews()">
+                <div class="form-group">
+                    <label>نوع الخبر</label>
+                    <select id="newsType" required>
+                        <option value="">اختر نوع الخبر</option>
+                        <option value="death">وفاة</option>
+                        <option value="wedding">زواج</option>
+                        <option value="birth">ولادة</option>
+                        <option value="graduation">تخرج</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>عنوان الخبر</label>
+                    <input type="text" id="newsTitle" placeholder="أدخل عنوان الخبر" required>
+                </div>
+
+                <div class="form-group">
+                    <label>تفاصيل الخبر</label>
+                    <textarea id="newsContent" placeholder="اكتب تفاصيل الخبر بشكل كامل..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>الدولة</label>
+                    <select id="newsCountry" required>
+                        <option value="">اختر الدولة</option>
+                        <option value="egypt">مصر</option>
+                        <option value="saudi">السعودية</option>
+                        <option value="uae">الإمارات</option>
+                        <option value="kuwait">الكويت</option>
+                        <option value="jordan">الأردن</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>المدينة</label>
+                    <input type="text" id="newsCity" placeholder="أدخل اسم المدينة" required>
+                </div>
+
+                <div class="form-group">
+                    <label>العائلة / القبيلة</label>
+                    <input type="text" id="newsFamily" placeholder="أدخل اسم العائلة أو القبيلة" required>
+                </div>
+
+                <div class="form-group">
+                    <label>إضافة صورة</label>
+                    <div class="file-upload-area" onclick="document.getElementById('newsImage').click()">
+                        <input type="file" id="newsImage" accept="image/*">
+                        <p style="color: #666; font-size: 14px;">📷 انقر هنا لرفع صورة</p>
+                        <p style="color: #999; font-size: 12px;">PNG, JPG, JPEG (حد أقصى 5MB)</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>إضافة مقطع صوتي (اختياري)</label>
+                    <div class="file-upload-area" onclick="document.getElementById('newsAudio').click()">
+                        <input type="file" id="newsAudio" accept="audio/*">
+                        <p style="color: #666; font-size: 14px;">🎤 انقر هنا لرفع مقطع صوتي</p>
+                        <p style="color: #999; font-size: 12px;">MP3, WAV (حد أقصى 10MB)</p>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">نشر الخبر</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span>تسجيل الدخول</span>
+                <button class="modal-close" onclick="hideModal('login')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form onsubmit="return handleLogin()">
+                    <div class="form-field">
+                        <label>البريد الإلكتروني أو اسم المستخدم</label>
+                        <input type="text" id="loginEmail" placeholder="أدخل بريدك الإلكتروني" required>
+                    </div>
+                    <div class="form-field">
+                        <label>كلمة المرور</label>
+                        <input type="password" id="loginPassword" placeholder="أدخل كلمة المرور" required>
+                    </div>
+                    <button type="submit" class="form-submit">دخول</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span>تسجيل حساب جديد</span>
+                <button class="modal-close" onclick="hideModal('register')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form onsubmit="return handleRegister()">
+                    <div class="form-field">
+                        <label>الاسم الكامل</label>
+                        <input type="text" id="regName" placeholder="أدخل اسمك الكامل" required>
+                    </div>
+                    <div class="form-field">
+                        <label>البريد الإلكتروني</label>
+                        <input type="email" id="regEmail" placeholder="example@email.com" required>
+                    </div>
+                    <div class="form-field">
+                        <label>اسم المستخدم</label>
+                        <input type="text" id="regUsername" placeholder="اختر اسم مستخدم" required>
+                    </div>
+                    <div class="form-field">
+                        <label>كلمة المرور</label>
+                        <input type="password" id="regPassword" placeholder="أدخل كلمة مرور قوية" required>
+                    </div>
+                    <div class="form-field">
+                        <label>الدولة</label>
+                        <select id="regCountry" required>
+                            <option value="">اختر الدولة</option>
+                            <option value="egypt">مصر</option>
+                            <option value="saudi">السعودية</option>
+                            <option value="uae">الإمارات</option>
+                            <option value="kuwait">الكويت</option>
+                            <option value="jordan">الأردن</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label>المدينة</label>
+                        <input type="text" id="regCity" placeholder="أدخل اسم المدينة" required>
+                    </div>
+                    <div class="form-field">
+                        <label>العائلة / القبيلة</label>
+                        <input type="text" id="regFamily" placeholder="أدخل اسم العائلة أو القبيلة" required>
+                    </div>
+                    <button type="submit" class="form-submit">تسجيل</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample news data
+        const newsData = {
+            1: {
+                category: 'death',
+                categoryName: 'وفاة',
+                title: 'انتقل إلى رحمة الله تعالى الحاج محمد أحمد',
+                author: 'أحمد محمد',
+                location: 'القاهرة، مصر',
+                date: 'منذ ساعة واحدة',
+                family: 'عائلة الأحمد',
+                image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=900&h=500&fit=crop',
+                content: 'انتقل إلى رحمة الله تعالى الحاج محمد أحمد من عائلة الأحمد الكريمة، عن عمر يناهز 75 عاماً. كان رحمه الله من الشخصيات المحبوبة في العائلة والمجتمع، وقد عُرف بطيب معشره وحسن خلقه.\n\nسيتم الدفن غداً بعد صلاة الظهر في مقابر العائلة بالقاهرة. نتقدم بخالص العزاء والمواساة لأسرة الفقيد وجميع أفراد العائلة.\n\nإنا لله وإنا إليه راجعون. اللهم ارحمه واغفر له وأسكنه فسيح جناتك.'
+            },
+            2: {
+                category: 'birth',
+                categoryName: 'ولادة',
+                title: 'مولود جديد في عائلة العلي',
+                author: 'سارة العلي',
+                location: 'جدة، السعودية',
+                date: 'منذ 3 ساعات',
+                family: 'عائلة العلي',
+                image: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=900&h=500&fit=crop',
+                content: 'بحمد الله وفضله رزق السيد عبدالله علي وزوجته بمولود ذكر بصحة جيدة. الحمد لله على السلامة والولادة تمت بنجاح في مستشفى الملك فهد بجدة.\n\nتم تسمية المولود "عمر" وقد تلقت العائلة العديد من التهاني والتبريكات من الأهل والأصدقاء. نسأل الله أن يبارك في المولود ويجعله من الصالحين.\n\nالأم والطفل بصحة جيدة والحمد لله. مبروك للعائلة الكريمة.'
+            },
+            3: {
+                category: 'wedding',
+                categoryName: 'زواج',
+                title: 'زفاف كريم وليلى',
+                author: 'نورا العتيبي',
+                location: 'الرياض، السعودية',
+                date: 'منذ 6 ساعات',
+                family: 'قبيلة العتيبة',
+                image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=900&h=500&fit=crop',
+                content: 'بحمد الله وتوفيقه تم عقد قران الشاب كريم أحمد بن محمد على الآنسة ليلى حسن بنت عبدالله من قبيلة العتيبة الكريمة. وقد أقيم حفل الزفاف بحضور الأهل والأصدقاء في قاعة الفرح الكبرى بمدينة الرياض.\n\nنسأل الله أن يبارك لهما ويبارك عليهما ويجمع بينهما في خير. كما نتقدم بالتهاني والتبريكات لعائلتي العروسين الكريمتين.\n\nتم تلقي العديد من التهاني والتبريكات من الأهل والأقارب والأصدقاء، حيث كان الحفل مميزاً وحضره عدد كبير من أفراد القبيلة والعائلة.'
+            }
+        };
+
+        // Page Navigation
+        function showPage(page) {
+            document.getElementById('homePage').classList.add('hidden');
+            document.getElementById('newsDetailPage').classList.add('hidden');
+            document.getElementById('createNewsPage').classList.add('hidden');
+
+            if (page === 'home') {
+                document.getElementById('homePage').classList.remove('hidden');
+            } else if (page === 'create') {
+                document.getElementById('createNewsPage').classList.remove('hidden');
+            }
+        }
+
+        function showNewsDetail(newsId) {
+            const news = newsData[newsId];
+            if (!news) return;
+
+            document.getElementById('detailCategory').textContent = news.categoryName;
+            document.getElementById('detailCategory').className = `news-category category-${news.category}`;
+            document.getElementById('detailTitle').textContent = news.title;
+            document.getElementById('detailAuthor').textContent = `بواسطة: ${news.author}`;
+            document.getElementById('detailLocation').textContent = news.location;
+            document.getElementById('detailDate').textContent = news.date;
+            document.getElementById('detailFamily').textContent = news.family;
+            document.getElementById('detailImage').src = news.image;
+            document.getElementById('detailContent').textContent = news.content;
+
+            document.getElementById('homePage').classList.add('hidden');
+            document.getElementById('newsDetailPage').classList.remove('hidden');
+            document.getElementById('createNewsPage').classList.add('hidden');
+
+            window.scrollTo(0, 0);
+        }
+
+        // Modal Functions
+        function showModal(type) {
+            const modal = document.getElementById(type + 'Modal');
+            if (modal) {
+                modal.classList.add('active');
+            }
+        }
+
+        function hideModal(type) {
+            const modal = document.getElementById(type + 'Modal');
+            if (modal) {
+                modal.classList.remove('active');
+            }
+        }
+
+        // Auth Functions
+        function handleLogin() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            // Simulate login
+            document.getElementById('guestMenu').classList.add('hidden');
+            document.getElementById('userMenu').classList.remove('hidden');
+            hideModal('login');
+
+            alert('تم تسجيل الدخول بنجاح!');
+            return false;
+        }
+
+        function handleRegister() {
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+
+            // Simulate registration
+            document.getElementById('guestMenu').classList.add('hidden');
+            document.getElementById('userMenu').classList.remove('hidden');
+            document.getElementById('userName').textContent = name;
+            hideModal('register');
+
+            alert('تم إنشاء الحساب بنجاح!');
+            return false;
+        }
+
+        function logout() {
+            document.getElementById('userMenu').classList.add('hidden');
+            document.getElementById('guestMenu').classList.remove('hidden');
+            showPage('home');
+            alert('تم تسجيل الخروج');
+        }
+
+        // Filter Function
+        function applyFilter() {
+            const country = document.getElementById('countrySelect').value;
+            const city = document.getElementById('citySelect').value;
+            const family = document.getElementById('familySelect').value;
+
+            alert('تم تطبيق الفلتر:\nالدولة: ' + country + '\nالمدينة: ' + city + '\nالعائلة: ' + family);
+        }
+
+        // Submit News
+        function submitNews() {
+            const type = document.getElementById('newsType').value;
+            const title = document.getElementById('newsTitle').value;
+            const content = document.getElementById('newsContent').value;
+
+            alert('تم نشر الخبر بنجاح!\n\nالنوع: ' + type + '\nالعنوان: ' + title);
+            
+            // Reset form
+            document.getElementById('newsType').value = '';
+            document.getElementById('newsTitle').value = '';
+            document.getElementById('newsContent').value = '';
+            document.getElementById('newsCountry').value = '';
+            document.getElementById('newsCity').value = '';
+            document.getElementById('newsFamily').value = '';
+
+            showPage('home');
+            return false;
+        }
+
+        // Add Comment
+        function addComment() {
+            const commentText = document.getElementById('commentText').value;
+            
+            if (!commentText.trim()) {
+                alert('الرجاء كتابة تعليق أولاً');
+                return;
+            }
+
+            const commentsList = document.getElementById('commentsList');
+            const newComment = document.createElement('div');
+            newComment.className = 'comment-item';
+            newComment.innerHTML = `
+                <div class="comment-header">
+                    <span class="comment-author-name">محمد أحمد</span>
+                    <span class="comment-date">الآن</span>
+                </div>
+                <div class="comment-text">${commentText}</div>
+            `;
+            
+            commentsList.insertBefore(newComment, commentsList.firstChild);
+            document.getElementById('commentText').value = '';
+            
+            alert('تم إضافة التعليق بنجاح!');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
