@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الفوتر والصفحات</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Footer Styles */
+        .site-footer {
+            background: #1a1a1a;
+            color: #ffffff;
+            margin-top: 50px;
+            border-top: 3px solid #c41e3a;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 50px 20px 30px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-section h3 {
+            color: #c41e3a;
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .footer-about {
+            padding-left: 20px;
+        }
+
+        .footer-logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #c41e3a;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-description {
+            font-size: 14px;
+            color: #cccccc;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: #2c3e50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .social-icon:hover {
+            background: #c41e3a;
+            transform: translateY(-3px);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #cccccc;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .footer-links a:hover {
+            color: #c41e3a;
+            padding-right: 5px;
+        }
+
+        .footer-contact p {
+            color: #cccccc;
+            font-size: 14px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-bottom {
+            background: #0d0d0d;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        .footer-bottom p {
+            color: #999;
+            font-size: 13px;
+        }
+
+        /* Policy Pages */
+        .policy-page {
+            background: white;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .policy-page.active {
+            display: block;
+        }
+
+        .policy-header {
+            border-bottom: 3px solid #c41e3a;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .policy-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+
+        .policy-date {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .policy-section {
+            margin-bottom: 30px;
+        }
+
+        .policy-section h2 {
+            font-size: 22px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .policy-section h3 {
+            font-size: 18px;
+            color: #34495e;
+            margin-bottom: 12px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .policy-section p {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 15px;
+        }
+
+        .policy-section ul {
+            margin-right: 30px;
+            margin-bottom: 15px;
+        }
+
+        .policy-section li {
+            font-size: 15px;
+            color: #444;
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+
+        .highlight-box {
+            background: #fff9e6;
+            border-right: 4px solid #c41e3a;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: #333;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #c41e3a;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 30px;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+
+        .back-btn:hover {
+            background: #a01730;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-about {
+                padding-right: 0;
+            }
+
+            .policy-page {
+                padding: 25px;
+                margin: 20px;
+            }
+
+            .policy-title {
+                font-size: 24px;
+            }
+        }
+
+        .demo-content {
+            background: white;
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .demo-content h1 {
+            color: #c41e3a;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Demo Content -->
+    <!-- <div class="demo-content" id="mainContent">
+        <h1>📰 أخبار المجتمع</h1>
+        <p style="font-size: 18px; color: #666;">منصتك الأولى لأخبار المجتمع المحلي</p>
+        <p style="margin-top: 20px; color: #999;">اسكرول للأسفل لمشاهدة الفوتر ⬇️</p>
+    </div> -->
+
+    <!-- Privacy Policy Page -->
+    <div id="privacyPage" class="policy-page">
+        <div class="policy-header">
+            <h1 class="policy-title">سياسة الخصوصية</h1>
+            <p class="policy-date">آخر تحديث: ديسمبر 2025</p>
+        </div>
+
+        <div class="policy-section">
+            <p>نحن في <strong>أخبار المجتمع</strong> نلتزم بحماية خصوصيتك وبياناتك الشخصية. توضح هذه السياسة كيفية جمع واستخدام وحماية معلوماتك عند استخدام موقعنا.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>١. المعلومات التي نجمعها</h2>
+            <p>نقوم بجمع الأنواع التالية من المعلومات:</p>
+            <ul>
+                <li><strong>المعلومات الشخصية:</strong> الاسم، البريد الإلكتروني، رقم الهاتف، المدينة عند التسجيل</li>
+                <li><strong>معلومات الاستخدام:</strong> صفحات الموقع التي تزورها، الوقت المستغرق، نوع المتصفح</li>
+                <li><strong>الصور والمحتوى:</strong> الصور والأخبار التي تنشرها على الموقع</li>
+                <li><strong>ملفات تعريف الارتباط:</strong> لتحسين تجربة الاستخدام وتذكر تفضيلاتك</li>
+            </ul>
+        </div>
+
+        <div class="policy-section">
+            <h2>٢. كيفية استخدام المعلومات</h2>
+            <p>نستخدم المعلومات التي نجمعها للأغراض التالية:</p>
+            <ul>
+                <li>إنشاء وإدارة حسابك على الموقع</li>
+                <li>نشر الأخبار والمحتوى الخاص بك</li>
+                <li>التواصل معك بخصوص حسابك والإشعارات المهمة</li>
+                <li>تحسين خدماتنا وتجربة المستخدم</li>
+                <li>الحفاظ على أمان الموقع ومنع الاستخدام غير المصرح به</li>
+            </ul>
+        </div>
+
+        <div class="highlight-box">
+            <p><strong>ملاحظة مهمة:</strong> لن نقوم ببيع أو تأجير معلوماتك الشخصية لأطراف ثالثة دون موافقتك الصريحة.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>٣. مشاركة المعلومات</h2>
+            <p>نحن لا نشارك معلوماتك الشخصية إلا في الحالات التالية:</p>
+            <ul>
+                <li>عند موافقتك الصريحة على ذلك</li>
+                <li>للامتثال للقوانين واللوائح المعمول بها</li>
+                <li>لحماية حقوق وسلامة موقعنا ومستخدمينا</li>
+                <li>مع مقدمي الخدمات الذين يساعدوننا في تشغيل الموقع (مع التزامهم بحماية البيانات)</li>
+            </ul>
+        </div>
+
+        <div class="policy-section">
+            <h2>٤. حماية البيانات</h2>
+            <p>نتخذ إجراءات أمنية متقدمة لحماية معلوماتك الشخصية، بما في ذلك:</p>
+            <ul>
+                <li>تشفير البيانات الحساسة أثناء النقل والتخزين</li>
+                <li>استخدام خوادم آمنة محمية بجدران نارية</li>
+                <li>مراقبة مستمرة للأنشطة المشبوهة</li>
+                <li>تحديث أنظمة الأمان بشكل دوري</li>
+            </ul>
+        </div>
+
+        <div class="policy-section">
+            <h2>٥. حقوقك</h2>
+            <p>لديك الحقوق التالية فيما يتعلق ببياناتك الشخصية:</p>
+            <ul>
+                <li>الوصول إلى بياناتك الشخصية ومراجعتها</li>
+                <li>طلب تصحيح أو تحديث البيانات غير الدقيقة</li>
+                <li>طلب حذف بياناتك الشخصية</li>
+                <li>الاعتراض على معالجة بياناتك في ظروف معينة</li>
+                <li>سحب موافقتك في أي وقت</li>
+            </ul>
+        </div>
+
+        <div class="policy-section">
+            <h2>٦. التواصل معنا</h2>
+            <p>إذا كان لديك أي أسئلة أو استفسارات حول سياسة الخصوصية، يمكنك التواصل معنا عبر:</p>
+            <ul>
+                <li>البريد الإلكتروني: privacy@community-news.com</li>
+                <li>الهاتف: 0123456789</li>
+            </ul>
+        </div>
+
+        <button class="back-btn" onclick="showMainContent()">← العودة للرئيسية</button>
+    </div>
+
+    <!-- Terms of Service Page -->
+    <div id="termsPage" class="policy-page">
+        <div class="policy-header">
+            <h1 class="policy-title">شروط الاستخدام</h1>
+            <p class="policy-date">آخر تحديث: ديسمبر 2025</p>
+        </div>
+
+        <div class="policy-section">
+            <p>مرحباً بك في موقع <strong>أخبار المجتمع</strong>. باستخدامك لهذا الموقع، فإنك توافق على الالتزام بشروط الاستخدام التالية. يرجى قراءتها بعناية.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>١. قبول الشروط</h2>
+            <p>باستخدام موقعنا أو التسجيل فيه، فإنك تقر بأنك قد قرأت وفهمت ووافقت على الالتزام بهذه الشروط وسياسة الخصوصية الخاصة بنا.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>٢. استخدام الموقع</h2>
+            <h3>أ. الاستخدام المسموح به</h3>
+            <p>يمكنك استخدام الموقع للأغراض التالية:</p>
+            <ul>
+                <li>نشر أخبار مجتمعية مشروعة ومفيدة</li>
+                <li>التفاعل مع الأخبار والتعليق عليها</li>
+                <li>مشاركة الصور والمحتوى المرتبط بالأخبار المحلية</li>
+                <li>التواصل مع أفراد المجتمع</li>
+            </ul>
+
+            <h3>ب. الاستخدام الممنوع</h3>
+            <p>يُمنع منعاً باتاً:</p>
+            <ul>
+                <li>نشر محتوى مسيء أو تمييزي أو يحرض على الكراهية</li>
+                <li>نشر معلومات كاذبة أو مضللة</li>
+                <li>انتهاك حقوق الملكية الفكرية للآخرين</li>
+                <li>نشر محتوى إباحي أو غير لائق</li>
+                <li>التنمر أو المضايقة أو التهديد للمستخدمين الآخرين</li>
+                <li>محاولة اختراق الموقع أو التلاعب بأنظمته</li>
+            </ul>
+        </div>
+
+        <div class="highlight-box">
+            <p><strong>تحذير:</strong> أي انتهاك لهذه الشروط قد يؤدي إلى تعليق أو إنهاء حسابك بشكل دائم.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>٣. المحتوى والمسؤولية</h2>
+            <p>أنت وحدك المسؤول عن المحتوى الذي تنشره على الموقع. يجب أن تمتلك جميع الحقوق اللازمة لنشر أي محتوى تقوم بتحميله.</p>
+            <p>بنشرك للمحتوى، فإنك تمنح الموقع ترخيصاً غير حصري لاستخدام وعرض ونشر هذا المحتوى على المنصة.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>٤. الحسابات</h2>
+            <ul>
+                <li>يجب أن تكون المعلومات التي تقدمها عند التسجيل دقيقة وصحيحة</li>
+                <li>أنت مسؤول عن الحفاظ على سرية كلمة المرور الخاصة بك</li>
+                <li>يجب أن تكون بعمر 16 عاماً على الأقل لإنشاء حساب</li>
+                <li>لا يجوز لك إنشاء حسابات متعددة أو مزيفة</li>
+            </ul>
+        </div>
+
+        <div class="policy-section">
+            <h2>٥. الملكية الفكرية</h2>
+            <p>جميع عناصر الموقع بما في ذلك التصميم والشعار والنصوص والرسومات هي ملك لـ <strong>أخبار المجتمع</strong> ومحمية بموجب قوانين حقوق الطبع والنشر.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>٦. إخلاء المسؤولية</h2>
+            <p>الموقع يُقدم "كما هو" دون أي ضمانات. نحن لا نضمن دقة أو اكتمال المحتوى المنشور من قبل المستخدمين ولا نتحمل مسؤولية أي أضرار قد تنتج عن استخدام الموقع.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>٧. التعديلات على الشروط</h2>
+            <p>نحتفظ بالحق في تعديل هذه الشروط في أي وقت. سيتم إخطارك بأي تغييرات جوهرية عبر البريد الإلكتروني أو إشعار على الموقع.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>٨. القانون الساري</h2>
+            <p>تخضع هذه الشروط للقوانين المصرية، وأي نزاعات سيتم حلها في المحاكم المختصة.</p>
+        </div>
+
+        <button class="back-btn" onclick="showMainContent()">← العودة للرئيسية</button>
+    </div>
+
+    <!-- About Us Page -->
+    <div id="aboutPage" class="policy-page">
+        <div class="policy-header">
+            <h1 class="policy-title">من نحن</h1>
+            <p class="policy-date">نبذة عن موقع أخبار المجتمع</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>قصتنا</h2>
+            <p><strong>أخبار المجتمع</strong> هو منصة إخبارية مجتمعية تأسست عام 2025 بهدف ربط أفراد المجتمع المحلي ومشاركة الأخبار والأحداث المهمة التي تؤثر على حياتهم اليومية.</p>
+            <p>نؤمن بأن كل خبر محلي مهم، سواء كان احتفالاً بزفاف، تخرج، مولود جديد، أو حتى نعي فقيد. كل هذه اللحظات تستحق أن تُروى وتُشارك مع المجتمع.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>رؤيتنا</h2>
+            <p>نطمح لأن نكون المنصة الأولى والأكثر موثوقية لأخبار المجتمع المحلي، حيث يمكن لكل فرد مشاركة قصته والتواصل مع جيرانه وأصدقائه.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>مهمتنا</h2>
+            <ul>
+                <li>توفير منصة سهلة وآمنة لنشر الأخبار المحلية</li>
+                <li>تعزيز التواصل بين أفراد المجتمع</li>
+                <li>الحفاظ على ذكريات المجتمع ولحظاته المهمة</li>
+                <li>دعم الشفافية والمصداقية في نقل الأخبار</li>
+                <li>احترام خصوصية المستخدمين وحماية بياناتهم</li>
+            </ul>
+        </div>
+
+        <div class="highlight-box">
+            <p><strong>قيمنا:</strong> الصدق، الاحترام، المسؤولية المجتمعية، والشفافية</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>فريق العمل</h2>
+            <p>فريقنا مكون من مجموعة من المتخصصين الشغوفين بخدمة المجتمع، يعملون على مدار الساعة لضمان تقديم أفضل تجربة للمستخدمين.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>تواصل معنا</h2>
+            <p>نحن دائماً سعداء بسماع آرائكم واقتراحاتكم:</p>
+            <ul>
+                <li><strong>البريد الإلكتروني:</strong> info@community-news.com</li>
+                <li><strong>الهاتف:</strong> 0123456789</li>
+                <li><strong>العنوان:</strong> القاهرة، مصر</li>
+            </ul>
+        </div>
+
+        <button class="back-btn" onclick="showMainContent()">← العودة للرئيسية</button>
+    </div>
+
+    <!-- Contact Us Page -->
+    <div id="contactPage" class="policy-page">
+        <div class="policy-header">
+            <h1 class="policy-title">تواصل معنا</h1>
+            <p class="policy-date">نحن هنا لمساعدتك</p>
+        </div>
+
+        <div class="policy-section">
+            <p>سواء كان لديك سؤال، اقتراح، أو تحتاج إلى مساعدة، فريقنا جاهز للرد عليك في أقرب وقت ممكن.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>معلومات الاتصال</h2>
+            <ul>
+                <li><strong>📧 البريد الإلكتروني:</strong> info@community-news.com</li>
+                <li><strong>📧 الدعم الفني:</strong> support@community-news.com</li>
+                <li><strong>📧 الخصوصية:</strong> privacy@community-news.com</li>
+                <li><strong>📞 الهاتف:</strong> 0123456789</li>
+                <li><strong>⏰ ساعات العمل:</strong> من السبت إلى الخميس (9 صباحاً - 6 مساءً)</li>
+            </ul>
+        </div>
+
+        <div class="policy-section">
+            <h2>العنوان</h2>
+            <p>📍 القاهرة، مصر</p>
+        </div>
+
+        <div class="policy-section">
+            <h2>وسائل التواصل الاجتماعي</h2>
+            <p>تابعنا على منصات التواصل الاجتماعي للبقاء على اطلاع بآخر الأخبار والتحديثات:</p>
+            <div class="footer-social" style="margin-top: 20px;">
+                <a href="#" class="social-icon">f</a>
+                <a href="#" class="social-icon">𝕏</a>
+                <a href="#" class="social-icon">in</a>
+                <a href="#" class="social-icon">📷</a>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <p><strong>وقت الاستجابة:</strong> نسعى للرد على جميع الاستفسارات خلال 24 ساعة من أيام العمل.</p>
+        </div>
+
+        <button class="back-btn" onclick="showMainContent()">← العودة للرئيسية</button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <!-- About Section -->
+            <div class="footer-section footer-about">
+                <div class="footer-logo">📰 أخبار المجتمع</div>
+                <p class="footer-description">
+                    منصتك الأولى لمتابعة أخبار المجتمع المحلي. نوفر لك آخر الأخبار والفعاليات المجتمعية من زيجات، خطوبات، مواليد، وأخبار أخرى تهم مجتمعك المحلي.
+                </p>
+                <div class="footer-social">
+                    <a href="#" class="social-icon" title="فيسبوك">f</a>
+                    <a href="#" class="social-icon" title="تويتر">𝕏</a>
+                    <a href="#" class="social-icon" title="لينكدإن">in</a>
+                    <a href="#" class="social-icon" title="إنستغرام">📷</a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h3>روابط سريعة</h3>
+                <ul class="footer-links">
+                    <li><a onclick="showMainContent()">الصفحة الرئيسية</a></li>
+                    <li><a href="#">أخبار الزيجات</a></li>
+                    <li><a href="#">أخبار التخرج</a></li>
+                    <li><a href="#">أخبار المواليد</a></li>
+                    <li><a href="#">النعي</a></li>
+                    <li><a href="#">إنشاء خبر جديد</a></li>
+                </ul>
+            </div>
+
+            <!-- Categories -->
+            <div class="footer-section">
+                <h3>الأقسام</h3>
+                <ul class="footer-links">
+                    <li><a href="#">القاهرة</a></li>
+                    <li><a href="#">الإسكندرية</a></li>
+                    <li><a href="#">الجيزة</a></li>
+                    <li><a href="#">الدقهلية</a></li>
+                    <li><a href="#">الشرقية</a></li>
+                    <li><a href="#">جميع المحافظات</a></li>
+                </ul>
+            </div>
+
+            <!-- Support & Legal -->
+            <div class="footer-section">
+                <h3>الدعم والمساعدة</h3>
+                <ul class="footer-links">
+                    <li><a onclick="showAboutPage()">من نحن</a></li>
+                    <li><a onclick="showContactPage()">تواصل معنا</a></li>
+                    <li><a onclick="showPrivacyPage()">سياسة الخصوصية</a></li>
+                    <li><a onclick="showTermsPage()">شروط الاستخدام</a></li>
+                    <li><a href="#">الأسئلة الشائعة</a></li>
+                    <li><a href="#">مركز المساعدة</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <p>&copy; 2025 أخبار المجتمع. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script>
+        function showMainContent() {
+            document.getElementById('mainContent').style.display = 'block';
+            document.getElementById('privacyPage').classList.remove('active');
+            document.getElementById('termsPage').classList.remove('active');
+            document.getElementById('aboutPage').classList.remove('active');
+            document.getElementById('contactPage').classList.remove('active');
+            window.scrollTo(0, 0);
+        }
+
+        function showPrivacyPage() {
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('privacyPage').classList.add('active');
+            document.getElementById('termsPage').classList.remove('active');
+            document.getElementById('aboutPage').classList.remove('active');
+            document.getElementById('contactPage').classList.remove('active');
+            window.scrollTo(0, 0);
+        }
+
+        function showTermsPage() {
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('privacyPage').classList.remove('active');
+            document.getElementById('termsPage').classList.add('active');
+            document.getElementById('aboutPage').classList.remove('active');
+            document.getElementById('contactPage').classList.remove('active');
+            window.scrollTo(0, 0);
+        }
+
+        function showAboutPage() {
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('privacyPage').classList.remove('active');
+            document.getElementById('termsPage').classList.remove('active');
+            document.getElementById('aboutPage').classList.add('active');
+            document.getElementById('contactPage').classList.remove('active');
+            window.scrollTo(0, 0);
+        }
+
+        function showContactPage() {
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('privacyPage').classList.remove('active');
+            document.getElementById('termsPage').classList.remove('active');
+            document.getElementById('aboutPage').classList.remove('active');
+            document.getElementById('contactPage').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,6 +43,77 @@
             cursor: pointer;
         }
 
+        .menu {
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+
+        .menu ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            flex-wrap: wrap;
+        }
+
+        .menu li {
+            position: relative;
+        }
+
+        .menu li:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 25px;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            /* color: #333; */
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 15px;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .menu a:hover {
+            color: #c41e3a;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu ul {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .menu li::after {
+                display: none;
+            }
+
+            .menu a {
+                width: 100%;
+                justify-content: center;
+                border-bottom: 1px solid #e0e0e0;
+            }
+
+            .menu li:last-child a {
+                border-bottom: none;
+            }
+        }
+
         .auth-links {
             display: flex;
             gap: 15px;
@@ -66,7 +138,7 @@
             background: white;
             border-bottom: 1px solid #ddd;
             padding: 15px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
         .filter-container {
@@ -531,7 +603,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 1000;
             align-items: center;
             justify-content: center;
@@ -666,7 +738,7 @@
             .main-container {
                 grid-template-columns: 1fr;
             }
-            
+
             .sidebar {
                 display: none;
             }
@@ -694,16 +766,135 @@
                 padding: 20px;
             }
         }
+
+        .site-footer {
+            background: #1a1a1a;
+            color: #ffffff;
+            margin-top: 50px;
+            border-top: 3px solid #c41e3a;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 50px 20px 30px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-section h3 {
+            color: #c41e3a;
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .footer-about {
+            padding-left: 20px;
+        }
+
+        .footer-logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #c41e3a;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-description {
+            font-size: 14px;
+            color: #cccccc;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: #2c3e50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .social-icon:hover {
+            background: #c41e3a;
+            transform: translateY(-3px);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #cccccc;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .footer-links a:hover {
+            color: #c41e3a;
+            padding-right: 5px;
+        }
+
+        .footer-contact p {
+            color: #cccccc;
+            font-size: 14px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-bottom {
+            background: #0d0d0d;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        .footer-bottom p {
+            color: #999;
+            font-size: 13px;
+        }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <div class="top-header">
         <div class="header-container">
             <div class="site-logo" onclick="showPage('home')">شبكة الأخبار الاجتماعية</div>
-            <div id="guestMenu" class="auth-links">
-                <a href="#" onclick="showModal('login'); return false;">تسجيل الدخول</a>
-                <a href="#" onclick="showModal('register'); return false;">تسجيل جديد</a>
+            <div class="menu">
+                <ul>
+                    <li><a href="#"> اخبار عامة</a></li>
+                    <li><a href="#"> اخبار الوفاة</a></li>
+                    <li><a href="#"> اخبار الزواج</a></li>
+                    <li><a href="#"> اخبار التخرج</a></li>
+                    <li><a href="#"> اخبار الولادة</a></li>
+                </ul>
             </div>
             <div id="userMenu" class="user-menu hidden">
                 <a href="#" onclick="showPage('create'); return false;" class="create-news-btn">إضافة خبر جديد</a>
@@ -711,6 +902,11 @@
                     <div class="user-avatar">م</div>
                     <span id="userName">محمد أحمد</span>
                 </div>
+
+                <!-- <div id="guestMenu" class="auth-links">
+                <a href="#" onclick="showModal('login'); return false;">تسجيل الدخول</a>
+                <a href="#" onclick="showModal('register'); return false;">تسجيل جديد</a>
+            </div> -->
             </div>
         </div>
     </div>
@@ -759,10 +955,11 @@
         <!-- Right Sidebar - Member News -->
         <div class="sidebar">
             <div class="sidebar-header">أحدث أخبار الأعضاء</div>
-            
+
             <div class="news-item" onclick="showNewsDetail(1)">
                 <span class="news-category category-death">وفاة</span>
-                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&h=200&fit=crop" alt="خبر وفاة" class="news-image">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&h=200&fit=crop" alt="خبر وفاة"
+                    class="news-image">
                 <div class="news-title">انتقل إلى رحمة الله تعالى الحاج محمد أحمد</div>
                 <div class="news-excerpt">من عائلة الأحمد - القاهرة، مصر</div>
                 <div class="news-meta">
@@ -774,7 +971,8 @@
 
             <div class="news-item" onclick="showNewsDetail(2)">
                 <span class="news-category category-birth">ولادة</span>
-                <img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=300&h=200&fit=crop" alt="خبر ولادة" class="news-image">
+                <img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=300&h=200&fit=crop"
+                    alt="خبر ولادة" class="news-image">
                 <div class="news-title">مولود جديد في عائلة العلي</div>
                 <div class="news-excerpt">رزق السيد عبدالله علي بمولود ذكر - جدة</div>
                 <div class="news-meta">
@@ -786,7 +984,8 @@
 
             <div class="news-item" onclick="showNewsDetail(3)">
                 <span class="news-category category-wedding">زواج</span>
-                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=300&h=200&fit=crop" alt="خبر زواج" class="news-image">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=300&h=200&fit=crop"
+                    alt="خبر زواج" class="news-image">
                 <div class="news-title">زفاف كريم وليلى</div>
                 <div class="news-excerpt">تم بحمد الله عقد قران كريم أحمد على ليلى حسن - الرياض</div>
                 <div class="news-meta">
@@ -798,7 +997,8 @@
 
             <div class="news-item" onclick="showNewsDetail(4)">
                 <span class="news-category category-graduation">تخرج</span>
-                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=300&h=200&fit=crop" alt="خبر تخرج" class="news-image">
+                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=300&h=200&fit=crop"
+                    alt="خبر تخرج" class="news-image">
                 <div class="news-title">تخرج بتفوق من كلية الطب</div>
                 <div class="news-excerpt">تخرجت نورا محمد من كلية الطب جامعة الإسكندرية بتقدير امتياز</div>
                 <div class="news-meta">
@@ -817,7 +1017,9 @@
                 <span class="admin-badge">إعلان هام</span>
                 <h2 class="admin-news-title">مرحباً بكم في شبكة الأخبار الاجتماعية</h2>
                 <div class="admin-news-content">
-                    نرحب بجميع أعضائنا الكرام في المنصة الإخبارية الاجتماعية الأولى من نوعها في الوطن العربي. يمكنكم الآن متابعة أخبار عائلاتكم وقبائلكم من جميع أنحاء الوطن العربي، والتفاعل مع الأخبار عبر التعليقات ومشاركة الصور والمقاطع الصوتية. نسعى دائماً لتقديم أفضل خدمة إخبارية اجتماعية لكم.
+                    نرحب بجميع أعضائنا الكرام في المنصة الإخبارية الاجتماعية الأولى من نوعها في الوطن العربي. يمكنكم
+                    الآن متابعة أخبار عائلاتكم وقبائلكم من جميع أنحاء الوطن العربي، والتفاعل مع الأخبار عبر التعليقات
+                    ومشاركة الصور والمقاطع الصوتية. نسعى دائماً لتقديم أفضل خدمة إخبارية اجتماعية لكم.
                 </div>
                 <div class="admin-news-meta">
                     نُشر بواسطة: الإدارة | التاريخ: 05 ديسمبر 2025
@@ -837,7 +1039,9 @@
                 <span class="admin-badge">تحديث</span>
                 <h2 class="admin-news-title">ميزات جديدة في الموقع</h2>
                 <div class="admin-news-content">
-                    يسعدنا أن نعلن عن إضافة ميزات جديدة تشمل: إمكانية إنشاء صفحات إخبارية متعددة لكل عضو، نظام متابعة محسّن يعتمد على اسم العائلة/القبيلة والمدينة، ورفع الصور والمقاطع الصوتية على الأخبار. كما تم تحسين نظام الفلترة ليكون أكثر دقة وسهولة في الاستخدام.
+                    يسعدنا أن نعلن عن إضافة ميزات جديدة تشمل: إمكانية إنشاء صفحات إخبارية متعددة لكل عضو، نظام متابعة
+                    محسّن يعتمد على اسم العائلة/القبيلة والمدينة، ورفع الصور والمقاطع الصوتية على الأخبار. كما تم تحسين
+                    نظام الفلترة ليكون أكثر دقة وسهولة في الاستخدام.
                 </div>
                 <div class="admin-news-meta">
                     نُشر بواسطة: فريق التطوير | التاريخ: 04 ديسمبر 2025
@@ -857,7 +1061,9 @@
                 <span class="admin-badge">إرشادات</span>
                 <h2 class="admin-news-title">كيفية استخدام الموقع</h2>
                 <div class="admin-news-content">
-                    للاستفادة الكاملة من الموقع، نوصي بإنشاء حساب والتسجيل. بعد التسجيل، يمكنك متابعة العائلات والقبائل المختلفة، نشر أخبارك الاجتماعية، التعليق على أخبار الآخرين، ومشاركة اللحظات المهمة مع مجتمعك. استخدم نظام الفلترة للبحث عن أخبار محددة حسب الدولة والمدينة والعائلة.
+                    للاستفادة الكاملة من الموقع، نوصي بإنشاء حساب والتسجيل. بعد التسجيل، يمكنك متابعة العائلات والقبائل
+                    المختلفة، نشر أخبارك الاجتماعية، التعليق على أخبار الآخرين، ومشاركة اللحظات المهمة مع مجتمعك. استخدم
+                    نظام الفلترة للبحث عن أخبار محددة حسب الدولة والمدينة والعائلة.
                 </div>
                 <div class="admin-news-meta">
                     نُشر بواسطة: الإدارة | التاريخ: 03 ديسمبر 2025
@@ -868,10 +1074,11 @@
         <!-- Left Sidebar - More Member News -->
         <div class="sidebar">
             <div class="sidebar-header">المزيد من الأخبار</div>
-            
+
             <div class="news-item" onclick="showNewsDetail(5)">
                 <span class="news-category category-death">وفاة</span>
-                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=200&fit=crop" alt="خبر وفاة" class="news-image">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=200&fit=crop"
+                    alt="خبر وفاة" class="news-image">
                 <div class="news-title">في ذمة الله السيدة فاطمة حسن</div>
                 <div class="news-excerpt">انتقلت إلى رحمة الله والدة الحاج علي حسن - دبي</div>
                 <div class="news-meta">
@@ -883,7 +1090,8 @@
 
             <div class="news-item" onclick="showNewsDetail(6)">
                 <span class="news-category category-wedding">زواج</span>
-                <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=300&h=200&fit=crop" alt="خبر زواج" class="news-image">
+                <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=300&h=200&fit=crop"
+                    alt="خبر زواج" class="news-image">
                 <div class="news-title">خطوبة سعيدة</div>
                 <div class="news-excerpt">تمت خطوبة أحمد خالد على منى سعيد من عائلة العلي - الكويت</div>
                 <div class="news-meta">
@@ -895,7 +1103,8 @@
 
             <div class="news-item" onclick="showNewsDetail(7)">
                 <span class="news-category category-graduation">تخرج</span>
-                <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=300&h=200&fit=crop" alt="خبر تخرج" class="news-image">
+                <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=300&h=200&fit=crop"
+                    alt="خبر تخرج" class="news-image">
                 <div class="news-title">تخرج من كلية الهندسة</div>
                 <div class="news-excerpt">تخرج يوسف أحمد من كلية الهندسة - جامعة القاهرة بتقدير جيد جداً</div>
                 <div class="news-meta">
@@ -907,7 +1116,8 @@
 
             <div class="news-item" onclick="showNewsDetail(8)">
                 <span class="news-category category-birth">ولادة</span>
-                <img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=300&h=200&fit=crop" alt="خبر ولادة" class="news-image">
+                <img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=300&h=200&fit=crop"
+                    alt="خبر ولادة" class="news-image">
                 <div class="news-title">مولودة جديدة</div>
                 <div class="news-excerpt">رزقت عائلة السعيد بمولودة جميلة، الحمد لله - الإسكندرية</div>
                 <div class="news-meta">
@@ -933,14 +1143,18 @@
                 </div>
             </div>
 
-            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=900&h=500&fit=crop" alt="صورة الخبر" class="news-detail-image" id="detailImage">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=900&h=500&fit=crop"
+                alt="صورة الخبر" class="news-detail-image" id="detailImage">
 
             <div class="news-detail-content" id="detailContent">
-                بحمد الله وتوفيقه تم عقد قران الشاب كريم أحمد بن محمد على الآنسة ليلى حسن بنت عبدالله من قبيلة العتيبة الكريمة. وقد أقيم حفل الزفاف بحضور الأهل والأصدقاء في قاعة الفرح الكبرى بمدينة الرياض.
-                
-                نسأل الله أن يبارك لهما ويبارك عليهما ويجمع بينهما في خير. كما نتقدم بالتهاني والتبريكات لعائلتي العروسين الكريمتين.
-                
-                تم تلقي العديد من التهاني والتبريكات من الأهل والأقارب والأصدقاء، حيث كان الحفل مميزاً وحضره عدد كبير من أفراد القبيلة والعائلة.
+                بحمد الله وتوفيقه تم عقد قران الشاب كريم أحمد بن محمد على الآنسة ليلى حسن بنت عبدالله من قبيلة العتيبة
+                الكريمة. وقد أقيم حفل الزفاف بحضور الأهل والأصدقاء في قاعة الفرح الكبرى بمدينة الرياض.
+
+                نسأل الله أن يبارك لهما ويبارك عليهما ويجمع بينهما في خير. كما نتقدم بالتهاني والتبريكات لعائلتي
+                العروسين الكريمتين.
+
+                تم تلقي العديد من التهاني والتبريكات من الأهل والأقارب والأصدقاء، حيث كان الحفل مميزاً وحضره عدد كبير من
+                أفراد القبيلة والعائلة.
             </div>
 
             <div class="comments-section">
@@ -1014,7 +1228,7 @@
     <div id="createNewsPage" class="hidden">
         <div class="create-news-container">
             <h1 class="page-title">إضافة خبر جديد</h1>
-            
+
             <form onsubmit="return submitNews()">
                 <div class="form-group">
                     <label>نوع الخبر</label>
@@ -1154,7 +1368,68 @@
             </div>
         </div>
     </div>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <!-- About Section -->
+            <div class="footer-section footer-about">
+                <div class="footer-logo">📰 أخبار المجتمع</div>
+                <p class="footer-description">
+                    منصتك الأولى لمتابعة أخبار المجتمع المحلي. نوفر لك آخر الأخبار والفعاليات المجتمعية من زيجات،
+                    خطوبات، مواليد، وأخبار أخرى تهم مجتمعك المحلي.
+                </p>
+                <div class="footer-social">
+                    <a href="#" class="social-icon" title="فيسبوك">f</a>
+                    <a href="#" class="social-icon" title="تويتر">𝕏</a>
+                    <a href="#" class="social-icon" title="لينكدإن">in</a>
+                    <a href="#" class="social-icon" title="إنستغرام">📷</a>
+                </div>
+            </div>
 
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h3>روابط سريعة</h3>
+                <ul class="footer-links">
+                    <li><a onclick="showMainContent()">الصفحة الرئيسية</a></li>
+                    <li><a href="#">أخبار الزيجات</a></li>
+                    <li><a href="#">أخبار التخرج</a></li>
+                    <li><a href="#">أخبار المواليد</a></li>
+                    <li><a href="#">النعي</a></li>
+                    <li><a href="#">إنشاء خبر جديد</a></li>
+                </ul>
+            </div>
+
+            <!-- Categories -->
+            <div class="footer-section">
+                <h3>الأقسام</h3>
+                <ul class="footer-links">
+                    <li><a href="#">القاهرة</a></li>
+                    <li><a href="#">الإسكندرية</a></li>
+                    <li><a href="#">الجيزة</a></li>
+                    <li><a href="#">الدقهلية</a></li>
+                    <li><a href="#">الشرقية</a></li>
+                    <li><a href="#">جميع المحافظات</a></li>
+                </ul>
+            </div>
+
+            <!-- Support & Legal -->
+            <div class="footer-section">
+                <h3>الدعم والمساعدة</h3>
+                <ul class="footer-links">
+                    <li><a onclick="showAboutPage()">من نحن</a></li>
+                    <li><a onclick="showContactPage()">تواصل معنا</a></li>
+                    <li><a onclick="showPrivacyPage()">سياسة الخصوصية</a></li>
+                    <li><a onclick="showTermsPage()">شروط الاستخدام</a></li>
+                    <li><a href="#">الأسئلة الشائعة</a></li>
+                    <li><a href="#">مركز المساعدة</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <p>&copy; 2025 أخبار المجتمع. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
     <script>
         // Sample news data
         const newsData = {
@@ -1293,7 +1568,7 @@
             const content = document.getElementById('newsContent').value;
 
             alert('تم نشر الخبر بنجاح!\n\nالنوع: ' + type + '\nالعنوان: ' + title);
-            
+
             // Reset form
             document.getElementById('newsType').value = '';
             document.getElementById('newsTitle').value = '';
@@ -1309,7 +1584,7 @@
         // Add Comment
         function addComment() {
             const commentText = document.getElementById('commentText').value;
-            
+
             if (!commentText.trim()) {
                 alert('الرجاء كتابة تعليق أولاً');
                 return;
@@ -1325,19 +1600,20 @@
                 </div>
                 <div class="comment-text">${commentText}</div>
             `;
-            
+
             commentsList.insertBefore(newComment, commentsList.firstChild);
             document.getElementById('commentText').value = '';
-            
+
             alert('تم إضافة التعليق بنجاح!');
         }
 
         // Close modal when clicking outside
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target.classList.contains('modal')) {
                 event.target.classList.remove('active');
             }
         }
     </script>
 </body>
+
 </html>
