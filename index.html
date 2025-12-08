@@ -19,72 +19,49 @@
             line-height: 1.6;
         }
 
-        /* Header Navigation */
+        /* Header */
         .top-header {
             background: #1a1a1a;
             color: white;
-            padding: 10px 0;
             border-bottom: 3px solid #c41e3a;
         }
 
         .header-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .site-logo {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
             color: #c41e3a;
             cursor: pointer;
         }
 
+        /* ========= MENU ========= */
         .menu {
-            padding: 15px 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin: 20px auto;
-            max-width: 1200px;
+            margin-left: auto;
         }
 
         .menu ul {
             list-style: none;
             display: flex;
-            justify-content: center;
             align-items: center;
             gap: 0;
-            flex-wrap: wrap;
-        }
-
-        .menu li {
-            position: relative;
-        }
-
-        .menu li:not(:last-child)::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 1px;
-            height: 25px;
         }
 
         .menu a {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 25px;
-            /* color: #333; */
+            padding: 12px 18px;
             color: white;
             text-decoration: none;
             font-weight: bold;
             font-size: 15px;
-            transition: all 0.3s;
+            transition: 0.3s;
             white-space: nowrap;
         }
 
@@ -92,27 +69,59 @@
             color: #c41e3a;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .menu ul {
+        /* ========= HAMBURGER BUTTON ========= */
+        .hamburger {
+            display: none;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        /* ========= Responsive ========= */
+        @media (max-width: 900px) {
+            .menu {
+                position: absolute;
+                top: 65px;
+                left: 0;
+                width: 100%;
+                background: #1a1a1a;
+                padding: 10px 0;
+                display: none;
+                /* hidden default */
                 flex-direction: column;
-                gap: 0;
+                border-top: 1px solid #333;
             }
 
-            .menu li::after {
-                display: none;
+            .menu.open {
+                display: flex;
+            }
+
+            .menu ul {
+                flex-direction: column;
+            }
+            .menu li {
+                margin-top: 16px;
             }
 
             .menu a {
                 width: 100%;
-                justify-content: center;
-                border-bottom: 1px solid #e0e0e0;
+                text-align: center;
+                padding: 20px 0;
+                border-bottom: 1px solid #333;
             }
 
-            .menu li:last-child a {
-                border-bottom: none;
+            .hamburger {
+                display: block;
+            }
+
+            /* إخفاء القائمة العادية */
+            .header-container {
+                justify-content: space-between;
             }
         }
+
+
 
         .auth-links {
             display: flex;
@@ -879,6 +888,43 @@
             color: #999;
             font-size: 13px;
         }
+
+        /* ===== Responsive Footer ===== */
+
+        @media (max-width: 992px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                /* عمودين في التابلت */
+                gap: 30px;
+                padding: 40px 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                /* عمود واحد للموبايل */
+                text-align: center;
+                gap: 25px;
+            }
+
+            .footer-about {
+                padding-left: 0;
+            }
+
+            .footer-logo {
+                justify-content: center;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer-links a:hover {
+                padding-right: 0;
+                /* منع الحركة يمين لأن النص في المنتصف */
+            }
+        }
     </style>
 </head>
 
@@ -887,30 +933,36 @@
     <div class="top-header">
         <div class="header-container">
             <div class="site-logo" onclick="showPage('home')">شبكة الأخبار الاجتماعية</div>
-            <div class="menu">
+
+            <!-- زر الهامبرجر -->
+            <div class="hamburger" onclick="toggleMenu()">
+                ☰
+            </div>
+
+            <div class="menu" id="mainMenu">
                 <ul>
-                    <li><a href="section.html"> اخبار عامة</a></li>
-                    <li><a href="section.html"> اخبار الوفاة</a></li>
-                    <li><a href="section.html"> اخبار الزواج</a></li>
-                    <li><a href="section.html"> اخبار التخرج</a></li>
-                    <li><a href="section.html"> اخبار الولادة</a></li>
+                    <li><a href="section.html">اخبار عامة</a></li>
+                    <li><a href="section.html">اخبار الوفاة</a></li>
+                    <li><a href="section.html">اخبار الزواج</a></li>
+                    <li><a href="section.html">اخبار التخرج</a></li>
+                    <li><a href="section.html">اخبار الولادة</a></li>
                 </ul>
             </div>
+
             <div id="userMenu" class="user-menu hidden">
                 <a href="#" onclick="showPage('create'); return false;" class="create-news-btn">إضافة خبر جديد</a>
                 <div class="user-profile" onclick="logout()">
                     <div class="user-avatar">م</div>
                     <span id="userName">محمد أحمد</span>
                 </div>
-
-                <!-- <div id="guestMenu" class="auth-links">
-                <a href="#" onclick="showModal('login'); return false;">تسجيل الدخول</a>
-                <a href="#" onclick="showModal('register'); return false;">تسجيل جديد</a>
-            </div> -->
             </div>
         </div>
     </div>
 
+    <!-- <div id="guestMenu" class="auth-links">
+                <a href="#" onclick="showModal('login'); return false;">تسجيل الدخول</a>
+                <a href="#" onclick="showModal('register'); return false;">تسجيل جديد</a>
+            </div> -->
     <!-- Filter Bar -->
     <div class="filter-bar">
         <div class="filter-container">
@@ -1612,6 +1664,10 @@
             if (event.target.classList.contains('modal')) {
                 event.target.classList.remove('active');
             }
+        }
+
+        function toggleMenu() {
+            document.getElementById("mainMenu").classList.toggle("open");
         }
     </script>
 </body>
