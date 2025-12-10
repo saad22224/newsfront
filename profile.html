@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الصفحة الشخصية - شبكة الأخبار الاجتماعية</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .top-header {
+            background: #1a1a1a;
+            color: white;
+            border-bottom: 3px solid #c41e3a;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .site-logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #c41e3a;
+            cursor: pointer;
+        }
+
+        .menu ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .menu a:hover {
+            color: #c41e3a;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar-small {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #c41e3a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Profile Header */
+        .profile-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #1a1a1a 100%);
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23c41e3a" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,133.3C960,128,1056,96,1152,90.7C1248,85,1344,107,1392,117.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') bottom center no-repeat;
+            background-size: cover;
+            opacity: 0.3;
+        }
+
+        .profile-header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid #c41e3a;
+            background: linear-gradient(135deg, #c41e3a, #a01730);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-info {
+            flex: 1;
+            color: white;
+        }
+
+        .profile-name {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-meta {
+            display: flex;
+            gap: 30px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .profile-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            opacity: 0.9;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #c41e3a;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        /* Action Buttons */
+        .profile-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 15px;
+        }
+
+        .btn-primary {
+            background: #c41e3a;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #a01730;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(196, 30, 58, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #2c3e50;
+            border: 2px solid #2c3e50;
+        }
+
+        .btn-secondary:hover {
+            background: #2c3e50;
+            color: white;
+        }
+
+        /* Tabs */
+        .profile-tabs {
+            background: white;
+            border-bottom: 2px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .tabs-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0;
+        }
+
+        .tab-btn {
+            padding: 18px 40px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .tab-btn:hover {
+            color: #c41e3a;
+            background: #f9f9f9;
+        }
+
+        .tab-btn.active {
+            color: #c41e3a;
+            border-bottom-color: #c41e3a;
+        }
+
+        .tab-count {
+            display: inline-block;
+            background: #e0e0e0;
+            color: #666;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-right: 8px;
+        }
+
+        .tab-btn.active .tab-count {
+            background: #c41e3a;
+            color: white;
+        }
+
+        /* Content Area */
+        .profile-content {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .news-card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .news-card-content {
+            padding: 20px;
+        }
+
+        .news-category {
+            display: inline-block;
+            padding: 4px 12px;
+            font-size: 11px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .category-death {
+            background: #000;
+            color: white;
+        }
+
+        .category-wedding {
+            background: #ff69b4;
+            color: white;
+        }
+
+        .category-graduation {
+            background: #4169e1;
+            color: white;
+        }
+
+        .category-birth {
+            background: #32cd32;
+            color: white;
+        }
+
+        .news-card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+
+        .news-card-excerpt {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .news-card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #999;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        /* Memorial Pages */
+        .memorial-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid #e0e0e0;
+        }
+
+        .memorial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            border-color: #c41e3a;
+        }
+
+        .memorial-banner {
+            height: 150px;
+            background: linear-gradient(135deg, #2c3e50 0%, #000 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .memorial-banner::before {
+            content: '🕊️';
+            font-size: 80px;
+            opacity: 0.1;
+            position: absolute;
+        }
+
+        .memorial-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid white;
+            object-fit: cover;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .memorial-content {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .memorial-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .memorial-dates {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .memorial-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .memorial-stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 13px;
+            color: #999;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .empty-state-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .empty-state-text {
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        /* Memorial Detail Page */
+        .memorial-detail {
+            background: white;
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .memorial-detail-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #000 100%);
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            color: white;
+        }
+
+        .memorial-detail-header::before {
+            content: '🕊️';
+            font-size: 150px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.05;
+        }
+
+        .memorial-detail-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 6px solid white;
+            object-fit: cover;
+            margin: 0 auto 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .memorial-detail-name {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .memorial-detail-dates {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .memorial-detail-quote {
+            font-size: 16px;
+            font-style: italic;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .memorial-detail-body {
+            padding: 40px;
+        }
+
+        .memorial-section {
+            margin-bottom: 40px;
+        }
+
+        .memorial-section-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+            border-bottom: 3px solid #c41e3a;
+            padding-bottom: 10px;
+        }
+
+        .memorial-section-content {
+            font-size: 16px;
+            line-height: 1.9;
+            color: #444;
+        }
+
+        /* Comments Section */
+        .comments-section {
+            margin-top: 40px;
+            border-top: 2px solid #e0e0e0;
+            padding-top: 30px;
+        }
+
+        .comments-header {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        .comment-form {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .comment-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            min-height: 100px;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .comment-form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .comment-submit {
+            padding: 10px 25px;
+            background: #c41e3a;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .comment-submit:hover {
+            background: #a01730;
+        }
+
+        .media-upload-btn {
+            padding: 10px 20px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .media-upload-btn:hover {
+            background: #1a252f;
+        }
+
+        .comment-item {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            background: white;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .comment-author-name {
+            font-weight: bold;
+            color: #c41e3a;
+            font-size: 15px;
+        }
+
+        .comment-date {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .comment-text {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Create Memorial Form */
+        .create-memorial-container {
+            background: white;
+            padding: 40px;
+            max-width: 800px;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #1a1a1a;
+            text-align: center;
+            border-bottom: 3px solid #c41e3a;
+            padding-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 15px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .file-upload-area {
+            border: 2px dashed #ddd;
+            padding: 30px;
+            text-align: center;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-upload-area:hover {
+            border-color: #c41e3a;
+            background: #f9f9f9;
+        }
+
+        .file-upload-area input[type="file"] {
+            display: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #c41e3a;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background: #a01730;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile-header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-stats {
+                justify-content: center;
+            }
+
+            .profile-actions {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .tabs-container {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            .tab-btn {
+                padding: 15px 25px;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .memorial-detail-header {
+                padding: 40px 20px;
+            }
+
+            .memorial-detail-body {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="top-header">
+        <div class="header-container">
+            <div class="site-logo" onclick="showPage('profile')">شبكة الأخبار الاجتماعية</div>
+            <div class="menu">
+                <ul>
+                    <li><a href="#">الرئيسية</a></li>
+                    <li><a href="#">أخبار عامة</a></li>
+                    <li><a href="#" onclick="showPage('profile')">صفحتي</a></li>
+                </ul>
+            </div>
+            <div class="user-menu">
+                <div class="user-avatar-small">م</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Page -->
+    <div id="profilePage">
+        <div class="profile-header">
+            <div class="profile-header-content">
+                <div class="profile-avatar">م</div>
+                <div class="profile-info">
+                    <h1 class="profile-name">محمد أحمد العلي</h1>
+                    <div class="profile-meta">
+                        <div class="profile-meta-item">
+                            📍 القاهرة، مصر
+                        </div>
+                        <div class="profile-meta-item">
+                            👥 عائلة العلي
+                        </div>
+                        <div class="profile-meta-item">
+                            📅 انضم في يناير 2024
+                        </div>
+                    </div>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">24</span>
+                            <span class="stat-label">الأخبار</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">8</span>
+                            <span class="stat-label">الصفحات التذكارية</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">156</span>
+                            <span class="stat-label">التعليقات</span>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="action-btn btn-primary" onclick="showPage('create-news')">إضافة خبر جديد</button>
+                        <button class="action-btn btn-primary" onclick="showPage('create-memorial')">إنشاء صفحة تذكارية</button>
+                        <button class="action-btn btn-secondary">تعديل البروفايل</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-tabs">
+            <div class="tabs-container">
+                <button class="tab-btn active" onclick="switchTab('news')">
+                    <span class="tab-count">24</span>
+                    أخباري
+                </button>
+                <button class="tab-btn" onclick="switchTab('memorials')">
+                    <span class="tab-count">8</span>
+                    الصفحات التذكارية
+                </button>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <!-- News Tab -->
+            <div id="newsTab" class="tab-content active">
+                <div class="news-grid">
+                    <div class="news-card" onclick="showNewsDetail(1)">
+                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=300&fit=crop"
+                            class="news-card-image" alt="خبر">
+                        <div class="news-card-content">
+                            <span class="news-category category-wedding">زواج</span>
+                            <h3 class="news-card-title">زفاف كريم وليلى</h3>
+                            <p class="news-card-excerpt">تم بحمد الله عقد قران كريم أحمد على ليلى حسن من عائلة العلي
+                                الكريمة في الرياض</p>
+                            <div class="news-card-meta">
+                                <span>منذ 6 ساعات</span>
+                                <span>💬 45 تعليق</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="news-card" onclick="showNewsDetail(2)">
+                        <img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=400&h=300&fit=crop"
+                            class="news-card-image" alt="خبر">
+                        <div class="news-card-content">
+                            <span class="news-category category-birth">ولادة</span>
+                            <h3 class="news-card-title">مولود جديد في العائلة</h3>
+                            <p class="news-card-excerpt">رزق الله عائلتنا بمولود ذكر بصحة وعافية، الحمد لله على
+                                السلامة</p>
+                            <div class="news-card-meta">
+                                <span>منذ يوم</span>
+                                <span>💬 32 تعليق</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="news-card" onclick="showNewsDetail(3)">
+                        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=300&fit=crop"
+                            class="news-card-image" alt="خبر">
+                        <div class="news-card-content">
+                            <span class="news-category category-graduation">تخرج</span>
+                            <h3 class="news-card-title">تخرج بتفوق من الجامعة</h3>
+                            <p class="news-card-excerpt">تخرجت ابنتي نورا من كلية الطب جامعة القاهرة بتقدير امتياز
+                                والحمد لله</p>
+                            <div class="news-card-meta">
+                                <span>منذ 3 أيام</span>
+                                <span>💬 28 تعليق</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Memorials Tab -->
+            <div id="memorialsTab" class="tab-content">
+                <div class="news-grid">
+                    <div class="memorial-card" onclick="showMemorialDetail(1)">
+                        <div class="memorial-banner">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop"
+                                class="memorial-image" alt="المرحوم">
+                        </div>
+                        <div class="memorial-content">
+                            <h3 class="memorial-title">الحاج أحمد محمد العلي</h3>
+                            <p class="memorial-dates">1945 - 2024</p>
+                            <p class="memorial-description">
+                                رحل عنا أبي الغالي تاركاً خلفه إرثاً من الحب والعطاء. كان رجلاً فاضلاً عُرف بكرمه
+                                وأخلاقه الحميدة. رحمه الله رحمة واسعة.
+                            </p>
+                            <div class="memorial-stats">
+                                <span>💬 124 تعليق</span>
+                                <span>🕊️ 342 زيارة</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="memorial-card" onclick="showMemorialDetail(2)">
+                        <div class="memorial-banner">
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&h=300&fit=crop"
+                                class="memorial-image" alt="المرحومة">
+                        </div>
+                        <div class="memorial-content">
+                            <h3 class="memorial-title">السيدة فاطمة حسن</h3>
+                            <p class="memorial-dates">1950 - 2023</p>
+                            <p class="memorial-description">
+                                أمي الحبيبة، التي ربتنا بالحب والحنان. كانت قدوة في الصبر والإيمان. اللهم
+                                اغفر لها وارحمها.
+                            </p>
+                            <div class="memorial-stats">
+                                <span>💬 89 تعليق</span>
+                                <span>🕊️ 256 زيارة</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="memorial-card" onclick="showMemorialDetail(3)">
+                        <div class="memorial-banner">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop"
+                                class="memorial-image" alt="المرحوم">
+                        </div>
+                        <div class="memorial-content">
+                            <h3 class="memorial-title">المهندس خالد عبدالله</h3>
+                            <p class="memorial-dates">1975 - 2024</p>
+                            <p class="memorial-description">
+                                أخي وصديقي، الذي كان دائماً سنداً وعوناً لنا. رحل شاباً لكنه ترك بصمة جميلة في
+                                قلوبنا. إنا لله وإنا إليه راجعون.
+                            </p>
+                            <div class="memorial-stats">
+                                <span>💬 67 تعليق</span>
+                                <span>🕊️ 198 زيارة</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Memorial Detail Page -->
+    <div id="memorialDetailPage" class="hidden">
+        <div class="profile-content">
+            <div class="memorial-detail">
+                <div class="memorial-detail-header">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop"
+                        class="memorial-detail-image" alt="المرحوم" id="memorialDetailImage">
+                    <h1 class="memorial-detail-name" id="memorialDetailName">الحاج أحمد محمد العلي</h1>
+                    <p class="memorial-detail-dates" id="memorialDetailDates">1945 - 2024</p>
+                    <p class="memorial-detail-quote" id="memorialDetailQuote">
+                        "كان رجلاً فاضلاً، قلبه مليء بالخير والمحبة. علمنا معنى الكرم والعطاء."
+                    </p>
+                </div>
+
+                <div class="memorial-detail-body">
+                    <div class="memorial-section">
+                        <h2 class="memorial-section-title">نبذة عن حياته</h2>
+                        <div class="memorial-section-content" id="memorialBiography">
+                            <p>ولد الحاج أحمد محمد العلي في مدينة القاهرة عام 1945، ونشأ في بيئة عائلية كريمة. كان
+                                رجلاً محباً للعلم والمعرفة، وقد عمل في مجال التجارة لسنوات طويلة واشتهر بأمانته
+                                وصدقه.</p>
+
+                            <p>عُرف رحمه الله بكرمه الشديد وحبه لمساعدة الآخرين. كان دائماً أول من يمد يد العون
+                                للمحتاجين، ولم يتوانى أبداً عن دعم أفراد عائلته وأصدقائه.</p>
+
+                            <p>ترك خلفه إرثاً من القيم النبيلة والأخلاق الحميدة التي نفتخر بها جميعاً. كان قدوة لنا
+                                في الصبر والإيمان والتمسك بالمبادئ.</p>
+                        </div>
+                    </div>
+
+                    <div class="memorial-section">
+                        <h2 class="memorial-section-title">ذكريات لا تُنسى</h2>
+                        <div class="memorial-section-content" id="memorialMemories">
+                            <p>من أجمل الذكريات معه كانت اجتماعاتنا العائلية كل جمعة، حيث كان يحرص على جمع الأسرة
+                                ويحكي لنا قصصاً من الماضي ويشاركنا حكمته وخبرته في الحياة.</p>
+
+                            <p>كان يحب السفر والترحال، وقد أخذنا في رحلات عائلية رائعة لن ننساها أبداً. كانت تلك
+                                اللحظات من أثمن الأوقات التي قضيناها معاً.</p>
+
+                            <p>سيبقى حبه وعطاؤه محفوراً في قلوبنا للأبد. رحمك الله يا أبي وجعل الجنة مثواك.</p>
+                        </div>
+                    </div>
+
+                    <div class="comments-section">
+                        <h2 class="comments-header">التعازي والذكريات (124)</h2>
+
+                        <div class="comment-form">
+                            <textarea placeholder="شارك ذكرى أو كلمة تعزية..." id="memorialCommentText"></textarea>
+                            <div class="comment-form-actions">
+                                <button class="comment-submit" onclick="addMemorialComment()">إرسال</button>
+                                <button class="media-upload-btn">📷 إضافة صورة</button>
+                                <button class="media-upload-btn">🎤 مقطع صوتي</button>
+                            </div>
+                        </div>
+
+                        <div id="memorialCommentsList">
+                            <div class="comment-item">
+                                <div class="comment-header">
+                                    <span class="comment-author-name">عبدالله محمود</span>
+                                    <span class="comment-date">منذ ساعة</span>
+                                </div>
+                                <div class="comment-text">
+                                    إنا لله وإنا إليه راجعون. كان رحمه الله رجلاً فاضلاً عرفناه بأخلاقه الحميدة وكرمه.
+                                    رحمه الله وأسكنه فسيح جناته. تعازينا القلبية لكم جميعاً.
+                                </div>
+                            </div>
+
+                            <div class="comment-item">
+                                <div class="comment-header">
+                                    <span class="comment-author-name">سارة العلي</span>
+                                    <span class="comment-date">منذ ساعتين</span>
+                                </div>
+                                <div class="comment-text">
+                                    لن ننسى أبداً لطفه معنا وابتسامته الدائمة. كان دائماً يسأل عنا ويطمئن علينا. الله
+                                    يرحمه ويغفر له ويجعل مثواه الجنة.
+                                </div>
+                            </div>
+
+                            <div class="comment-item">
+                                <div class="comment-header">
+                                    <span class="comment-author-name">محمد حسن</span>
+                                    <span class="comment-date">منذ 3 ساعات</span>
+                                </div>
+                                <div class="comment-text">
+                                    البقاء لله. كان نعم الجار والصديق. أذكره دائماً بكلماته الطيبة ونصائحه القيمة. رحمه
+                                    الله رحمة واسعة وألهمكم الصبر والسلوان.
+                                </div>
+                            </div>
+
+                            <div class="comment-item">
+                                <div class="comment-header">
+                                    <span class="comment-author-name">فاطمة أحمد</span>
+                                    <span class="comment-date">منذ 5 ساعات</span>
+                                </div>
+                                <div class="comment-text">
+                                    رجل نادر بأخلاقه وكرمه. كان يعامل الجميع بلطف واحترام. اللهم اغفر له وارحمه وعافه
+                                    واعف عنه. تعازينا الحارة لعائلته الكريمة.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Memorial Page -->
+    <div id="createMemorialPage" class="hidden">
+        <div class="create-memorial-container">
+            <h1 class="page-title">إنشاء صفحة تذكارية</h1>
+
+            <form onsubmit="return submitMemorial()">
+                <div class="form-group">
+                    <label>الاسم الكامل للمتوفى</label>
+                    <input type="text" id="memorialName" placeholder="أدخل الاسم الكامل" required>
+                </div>
+
+                <div class="form-group">
+                    <label>تاريخ الميلاد</label>
+                    <input type="date" id="memorialBirthDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label>تاريخ الوفاة</label>
+                    <input type="date" id="memorialDeathDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label>صورة شخصية</label>
+                    <div class="file-upload-area" onclick="document.getElementById('memorialPhoto').click()">
+                        <input type="file" id="memorialPhoto" accept="image/*">
+                        <p style="color: #666; font-size: 14px;">📷 انقر هنا لرفع صورة</p>
+                        <p style="color: #999; font-size: 12px;">PNG, JPG, JPEG (حد أقصى 5MB)</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>اقتباس أو كلمة مميزة</label>
+                    <input type="text" id="memorialQuote"
+                        placeholder='مثال: "كان رجلاً فاضلاً، قلبه مليء بالخير والمحبة"'>
+                </div>
+
+                <div class="form-group">
+                    <label>نبذة عن حياته/حياتها</label>
+                    <textarea id="memorialBio"
+                        placeholder="اكتب نبذة مختصرة عن حياة المتوفى، إنجازاته، صفاته المميزة..."
+                        required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>ذكريات لا تُنسى</label>
+                    <textarea id="memorialMemoriesText"
+                        placeholder="شارك بعض الذكريات الجميلة والمواقف التي لا تُنسى..."
+                        required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>المدينة</label>
+                    <input type="text" id="memorialCity" placeholder="أدخل اسم المدينة" required>
+                </div>
+
+                <div class="form-group">
+                    <label>العائلة / القبيلة</label>
+                    <input type="text" id="memorialFamily" placeholder="أدخل اسم العائلة أو القبيلة" required>
+                </div>
+
+                <button type="submit" class="submit-btn">إنشاء الصفحة التذكارية</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Page Navigation
+        function showPage(page) {
+            document.getElementById('profilePage').classList.remove('hidden');
+            document.getElementById('memorialDetailPage').classList.add('hidden');
+            document.getElementById('createMemorialPage').classList.add('hidden');
+
+            if (page === 'profile') {
+                document.getElementById('profilePage').classList.remove('hidden');
+            } else if (page === 'create-memorial') {
+                document.getElementById('profilePage').classList.add('hidden');
+                document.getElementById('createMemorialPage').classList.remove('hidden');
+            }
+        }
+
+        // Tab Switching
+        function switchTab(tab) {
+            // Update tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            if (tab === 'news') {
+                document.getElementById('newsTab').classList.add('active');
+            } else if (tab === 'memorials') {
+                document.getElementById('memorialsTab').classList.add('active');
+            }
+        }
+
+        // Show Memorial Detail
+        const memorialData = {
+            1: {
+                name: 'الحاج أحمد محمد العلي',
+                dates: '1945 - 2024',
+                image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop',
+                quote: 'كان رجلاً فاضلاً، قلبه مليء بالخير والمحبة. علمنا معنى الكرم والعطاء.',
+                biography: `<p>ولد الحاج أحمد محمد العلي في مدينة القاهرة عام 1945، ونشأ في بيئة عائلية كريمة. كان رجلاً محباً للعلم والمعرفة، وقد عمل في مجال التجارة لسنوات طويلة واشتهر بأمانته وصدقه.</p>
+                
+                <p>عُرف رحمه الله بكرمه الشديد وحبه لمساعدة الآخرين. كان دائماً أول من يمد يد العون للمحتاجين، ولم يتوانى أبداً عن دعم أفراد عائلته وأصدقائه.</p>
+                
+                <p>ترك خلفه إرثاً من القيم النبيلة والأخلاق الحميدة التي نفتخر بها جميعاً. كان قدوة لنا في الصبر والإيمان والتمسك بالمبادئ.</p>`,
+                memories: `<p>من أجمل الذكريات معه كانت اجتماعاتنا العائلية كل جمعة، حيث كان يحرص على جمع الأسرة ويحكي لنا قصصاً من الماضي ويشاركنا حكمته وخبرته في الحياة.</p>
+                
+                <p>كان يحب السفر والترحال، وقد أخذنا في رحلات عائلية رائعة لن ننساها أبداً. كانت تلك اللحظات من أثمن الأوقات التي قضيناها معاً.</p>
+                
+                <p>سيبقى حبه وعطاؤه محفوراً في قلوبنا للأبد. رحمك الله يا أبي وجعل الجنة مثواك.</p>`
+            },
+            2: {
+                name: 'السيدة فاطمة حسن',
+                dates: '1950 - 2023',
+                image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&h=300&fit=crop',
+                quote: 'أمي الحبيبة، منبع الحنان والعطاء. كانت قدوة في الصبر والإيمان.',
+                biography: `<p>ولدت والدتي الغالية في الإسكندرية عام 1950، وكانت امرأة استثنائية بكل المقاييس. عُرفت بحنانها الفياض وقلبها الكبير الذي يتسع للجميع.</p>
+                
+                <p>كرست حياتها لرعاية أسرتها وتربية أبنائها على القيم والأخلاق الحميدة. كانت دائماً المرجع والملجأ لكل من يحتاج النصيحة والدعم.</p>
+                
+                <p>رحمها الله رحمة واسعة وجعل الجنة مثواها. ستبقى ذكراها عطرة في قلوبنا إلى الأبد.</p>`,
+                memories: `<p>لن أنسى أبداً رائحة الطعام الذي كانت تطبخه بحب، وكيف كانت تجمعنا حول المائدة كل يوم. كانت تلك اللحظات من أسعد أوقات حياتنا.</p>
+                
+                <p>كانت تحكي لنا قصصاً قبل النوم، وتعلمنا الصلاة والقرآن بصبر وحكمة. كل ما نحن عليه اليوم هو بفضل تربيتها وتعليمها.</p>
+                
+                <p>افتقدك يا أمي كل يوم، لكن أعلم أنك في مكان أفضل. اللهم ارحمها واغفر لها وأسكنها فسيح جناتك.</p>`
+            },
+            3: {
+                name: 'المهندس خالد عبدالله',
+                dates: '1975 - 2024',
+                image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop',
+                quote: 'أخي وصديقي، الذي كان دائماً سنداً وعوناً. رحل شاباً لكنه ترك أثراً جميلاً.',
+                biography: `<p>ولد المهندس خالد عبدالله عام 1975 في جدة، وكان من الشخصيات المحبوبة في عائلتنا ومجتمعنا. تخرج من كلية الهندسة بتفوق وعمل في مجال الهندسة المدنية.</p>
+                
+                <p>كان خالد شخصاً طموحاً ومجتهداً، لكنه في نفس الوقت كان متواضعاً ومحباً للخير. ساعد الكثيرين في مسيرتهم المهنية والشخصية.</p>
+                
+                <p>رحل عنا في عمر الشباب تاركاً فراغاً كبيراً في قلوبنا. إنا لله وإنا إليه راجعون.</p>`,
+                memories: `<p>كنا نقضي ساعات طويلة معاً نتحدث عن أحلامنا وطموحاتنا. كان دائماً يشجعني ويدفعني للأمام، وكان خير سند لي في أصعب الأوقات.</p>
+                
+                <p>أذكر رحلاتنا البرية معاً، وكيف كنا نستمتع بالطبيعة ونتحدث عن الحياة حتى ساعات الفجر. كانت تلك من أجمل اللحظات.</p>
+                
+                <p>افتقدك يا أخي كل يوم. اللهم ارحمه واغفر له وأسكنه الفردوس الأعلى من الجنة.</p>`
+            }
+        };
+
+        function showMemorialDetail(id) {
+            const memorial = memorialData[id];
+            if (!memorial) return;
+
+            document.getElementById('memorialDetailName').textContent = memorial.name;
+            document.getElementById('memorialDetailDates').textContent = memorial.dates;
+            document.getElementById('memorialDetailImage').src = memorial.image;
+            document.getElementById('memorialDetailQuote').textContent = memorial.quote;
+            document.getElementById('memorialBiography').innerHTML = memorial.biography;
+            document.getElementById('memorialMemories').innerHTML = memorial.memories;
+
+            document.getElementById('profilePage').classList.add('hidden');
+            document.getElementById('memorialDetailPage').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        // Add Memorial Comment
+        function addMemorialComment() {
+            const commentText = document.getElementById('memorialCommentText').value;
+
+            if (!commentText.trim()) {
+                alert('الرجاء كتابة تعليق أولاً');
+                return;
+            }
+
+            const commentsList = document.getElementById('memorialCommentsList');
+            const newComment = document.createElement('div');
+            newComment.className = 'comment-item';
+            newComment.innerHTML = `
+                <div class="comment-header">
+                    <span class="comment-author-name">محمد أحمد</span>
+                    <span class="comment-date">الآن</span>
+                </div>
+                <div class="comment-text">${commentText}</div>
+            `;
+
+            commentsList.insertBefore(newComment, commentsList.firstChild);
+            document.getElementById('memorialCommentText').value = '';
+
+            alert('تم إضافة التعزية بنجاح');
+        }
+
+        // Submit Memorial
+        function submitMemorial() {
+            const name = document.getElementById('memorialName').value;
+            const birthDate = document.getElementById('memorialBirthDate').value;
+            const deathDate = document.getElementById('memorialDeathDate').value;
+
+            alert('تم إنشاء الصفحة التذكارية بنجاح!\n\nالاسم: ' + name + '\nتاريخ الميلاد: ' + birthDate + '\nتاريخ الوفاة: ' + deathDate);
+
+            // Reset form
+            document.getElementById('memorialName').value = '';
+            document.getElementById('memorialBirthDate').value = '';
+            document.getElementById('memorialDeathDate').value = '';
+            document.getElementById('memorialQuote').value = '';
+            document.getElementById('memorialBio').value = '';
+            document.getElementById('memorialMemoriesText').value = '';
+            document.getElementById('memorialCity').value = '';
+            document.getElementById('memorialFamily').value = '';
+
+            showPage('profile');
+            switchTab('memorials');
+            return false;
+        }
+
+        // Show News Detail
+        function showNewsDetail(id) {
+            alert('سيتم فتح تفاصيل الخبر #' + id);
+        }
+    </script>
+</body>
+
+</html>
